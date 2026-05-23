@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mini Redis Dashboard</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <section>
+          <p class="eyebrow">Mini Redis</p>
+          <h1>Control Plane</h1>
+        </section>
+        <section class="status-strip" aria-label="Server status">
+          <div class="status-pill" id="connectionPill">
+            <span class="dot" id="connectionDot"></span>
+            <span id="connectionText">Checking</span>
+          </div>
+          <div class="metric">
+            <span>Latency</span>
+            <strong id="latencyText">--</strong>
+          </div>
+          <div class="metric">
+            <span>This Client</span>
+            <strong id="clientText">pending</strong>
+          </div>
+          <div class="metric">
+            <span>Active Clients</span>
+            <strong id="clientCountText">0</strong>
+          </div>
+          <div class="metric">
+            <span>Backend</span>
+            <strong id="backendText">127.0.0.1:8080</strong>
+          </div>
+        </section>
+      </header>
+
+      <section class="command-bar" aria-label="Quick commands">
+        <button type="button" data-command="SET demo hello EX 60">SET</button>
+        <button type="button" data-command="GET demo">GET</button>
+        <button type="button" data-command="TTL demo">TTL</button>
+        <button type="button" data-command="INCR counter">INCR</button>
+        <button type="button" data-command="DEL demo">DEL</button>
+      </section>
+
+      <section class="workspace">
+        <section class="left-rail">
+          <article class="architecture-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Live Topology</p>
+                <h2>Multi-Client Map</h2>
+              </div>
+            </div>
+            <div class="architecture-map" id="architectureMap">
+              <div class="client-stack" id="clientStack"></div>
+              <div class="link-column">
+                <span class="flow-line"></span>
+                <span class="flow-label">WebSocket</span>
+                <span class="flow-line tcp"></span>
+                <span class="flow-label">TCP</span>
+              </div>
+              <div class="node bridge-node">
+                <span>Node Bridge</span>
+                <strong id="bridgeCountText">0 sessions</strong>
+              </div>
+              <div class="node server-node">
+                <span>C++ Backend</span>
+                <strong>Mini Redis</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="sessions-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Connected Tabs</p>
+                <h2>Client Sessions</h2>
+              </div>
+            </div>
+            <div class="session-list" id="sessionList"></div>
+          </article>
+        </section>
+
+        <article class="terminal-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Raw TCP Bridge</p>
+              <h2>Browser CLI</h2>
+            </div>
+            <button type="button" class="ghost-button" id="clearTerminal">Clear</button>
+          </div>
+          <div class="terminal" id="terminalLog" aria-live="polite"></div>
+          <form class="terminal-input" id="commandForm">
+            <span>&gt;</span>
+            <input id="commandInput" autocomplete="off" spellcheck="false" placeholder="SET user:1 Jayant EX 120">
+            <button type="submit">Run</button>
+          </form>
+        </article>
+
+        <aside class="explorer-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Observed Dataset</p>
+              <h2>Key Explorer</h2>
+            </div>
+            <button type="button" class="ghost-button" id="refreshKeys">Refresh</button>
+          </div>
+          <div class="search-row">
+            <input id="keySearch" autocomplete="off" placeholder="Filter keys">
+          </div>
+          <div class="key-list" id="keyList"></div>
+        </aside>
+      </section>
+
+      <section class="activity-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Cross-Client Timeline</p>
+            <h2>Recent Activity</h2>
+          </div>
+        </div>
+        <div class="activity-list" id="activityList"></div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

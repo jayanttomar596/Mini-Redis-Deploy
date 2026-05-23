@@ -1,0 +1,14 @@
+{
+  "name": "mini-redis-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dependency-free web dashboard and TCP bridge for Mini Redis.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
