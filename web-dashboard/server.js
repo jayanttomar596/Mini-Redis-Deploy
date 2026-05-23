@@ -51,6 +51,11 @@ function startBundledMiniRedis() {
     process.stderr.write(`[mini-redis] ${chunk}`);
   });
 
+  backendProcess.on("error", (error) => {
+    backendProcess = null;
+    console.error(`Failed to start Mini Redis backend at ${backendBinary}: ${error.message}`);
+  });
+
   backendProcess.on("exit", (code, signal) => {
     backendProcess = null;
     console.log(`Mini Redis backend exited with code ${code ?? "null"} and signal ${signal ?? "null"}`);

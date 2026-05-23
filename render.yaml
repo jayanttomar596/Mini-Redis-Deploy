@@ -1,13 +1,11 @@
 services:
   - type: web
-    name: mini-redis-dashboard
-    runtime: node
+    name: mini-redis-dashboard-live
+    runtime: docker
     plan: free
-    buildCommand: cd MiniRedis && make app && cd ../web-dashboard && npm install --omit=dev
-    startCommand: cd web-dashboard && MINI_REDIS_AUTOSTART=1 node server.js
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     envVars:
-      - key: NODE_VERSION
-        value: 22
       - key: MINI_REDIS_HOST
         value: 127.0.0.1
       - key: MINI_REDIS_PORT

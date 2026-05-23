@@ -1,0 +1,14 @@
+.git
+.gitignore
+README.md
+DEPLOYMENT.md
+RUNNING_MANUAL.md
+LICENSE
+MiniRedis/client
+MiniRedis/app
+MiniRedis/data.log
+MiniRedis/snapshot.rdb
+MiniRedis/data/
+web-dashboard/node_modules
+npm-debug.log
+.DS_Store
